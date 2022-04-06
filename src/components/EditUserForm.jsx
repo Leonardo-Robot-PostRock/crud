@@ -1,41 +1,33 @@
-import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-const EditUserForm = () => {
-  const context = useContext(AppContext);
-  const { user, setUser, updateUser, currentUser, setEditing } = context;
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+function EditUserForm(props) {
+console.log(props.currentUser);
+
+  const { register, handleSubmit, errors, setValue } = useForm({
+    defaultValues: props.currentUser,
+  });
+
+  setValue("name", props.currentUser.name);
+  setValue("username", props.currentUser.username);
+
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+    props.updateUser(props.currentUser.id, data);
+    console.log(data);
+    e.target.reset();
   };
-
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        updateUser(user.id, user);
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label>Name</label>
-      <input
-        type="text"
-        name="name"
-        value={user.name}
-        onChange={handleInputChange}
-      />
+      <input type="text" {...register("name")} />
+      <div>{errors?.name?.message}</div>
       <label>Username</label>
-      <input
-        type="text"
-        name="name"
-        value={user.name}
-        onChange={handleInputChange}
-      />
-      <button>Update user</button>
-      <button onClick={() => setEditing(false)} className="button muted-button">
-        Cancel
-      </button>
+      <input type="text" {...register("username")} />
+      <div>{errors?.username?.message}</div>
+      <button>Edit user</button>
     </form>
   );
-};
+}
 
 export default EditUserForm;

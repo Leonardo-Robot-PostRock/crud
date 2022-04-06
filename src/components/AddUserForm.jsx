@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import AppContext from "../context/AppContext";
 
-const AddUserForm = () => {
-  const context = useContext(AppContext);
-  const { addUser } = context;
-
+function AddUserForm({ addUser }) {
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = (data, e) => {
     e.preventDefault();
     addUser(data);
     e.target.reset();
+    console.log(data);
   };
 
   return (
@@ -19,11 +17,11 @@ const AddUserForm = () => {
       <input type="text" {...register("name")} />
       <div>{errors?.name?.message}</div>
       <label>Username</label>
-      <input type="text" {...register("userName")} />
+      <input type="text" {...register("username")} />
       <div>{errors?.username?.message}</div>
       <button>Add new user</button>
     </form>
   );
-};
+}
 
 export default AddUserForm;

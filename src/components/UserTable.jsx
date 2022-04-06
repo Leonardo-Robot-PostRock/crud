@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import React from "react";
 
-const UserTable = () => {
-  const context = useContext(AppContext);
-  const { users, deleteUser, editUser } = context;
+function UserTable({ deleteUser, users, editRowUser }) {
   return (
     <table>
       <thead>
@@ -22,7 +19,7 @@ const UserTable = () => {
               <td>
                 <button
                   className="button muted-button"
-                  onClick={() => editUser(user)}
+                  onClick={() => editRowUser(user)}
                 >
                   Edit
                 </button>
@@ -43,6 +40,6 @@ const UserTable = () => {
       </tbody>
     </table>
   );
-};
+}
 
 export default UserTable;

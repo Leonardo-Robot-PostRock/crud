@@ -8,23 +8,14 @@ const usersData = [
   { id: uuidv4(), name: "Ben", username: "benisphere" },
 ];
 
-const initialFormState = {
-  id: null,
-  name: "",
-  username: "",
-};
-
 const useInitialState = () => {
   const [users, setUsers] = useState(usersData);
-  const [editing, setEditing] = useState(false);
-  const [currentUser, setCurrentUser] = useState(initialFormState);
 
   /*ADD USERS*/
   const addUser = (user) => {
     user.id = uuidv4();
     setUsers([...users, user]);
   };
-
   /*REMOVE USERS*/
   const deleteUser = (id) => {
     const arrayFiltrado = users.filter((user) => user.id !== id);
@@ -32,7 +23,14 @@ const useInitialState = () => {
   };
 
   /*EDIT USERS*/
-  const editUser = (user) => {
+  const [editing, setEditing] = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    id: null,
+    name: "",
+    username: "",
+  });
+
+  const editRowUser = (user) => {
     setEditing(true);
     setCurrentUser({
       id: user.id,
@@ -40,21 +38,31 @@ const useInitialState = () => {
       username: user.username,
     });
   };
-
+  
+  /*UPDATE VIEWE USERS*/
   const updateUser = (id, updatedUser) => {
     setEditing(false);
     setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
   };
-  return {
+
+  const state = {
     users,
-    addUser,
-    deleteUser,
-    editing,
-    setEditing,
-    editUser,
     currentUser,
-    setCurrentUser,
+    editing,
+  };
+  const stateUpdaters = {
+    addUser,
+    setUsers,
+    deleteUser,
+    editRowUser,
     updateUser,
+    setEditing,
+    setCurrentUser,
+  };
+
+  return {
+    state,
+    stateUpdaters,
   };
 };
 
