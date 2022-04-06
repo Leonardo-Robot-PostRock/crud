@@ -38,8 +38,8 @@ const useInitialState = () => {
       username: user.username,
     });
   };
-  
-  /*UPDATE VIEWE USERS*/
+
+  /*UPDATE VIEW USERS*/
   const updateUser = (id, updatedUser) => {
     setEditing(false);
     setUsers(users.map((user) => (user.id === id ? updatedUser : user)));
