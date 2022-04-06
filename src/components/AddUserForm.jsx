@@ -4,9 +4,7 @@ import AppContext from "../context/AppContext";
 
 const AddUserForm = () => {
   const context = useContext(AppContext);
-  const { addUser, users } = context;
-
-  console.log("VER", users);
+  const { addUser } = context;
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data, e) => {

@@ -3,8 +3,7 @@ import AppContext from "../context/AppContext";
 
 const UserTable = () => {
   const context = useContext(AppContext);
-  const { users, deleteUser } = context;
-  console.log("1", users);
+  const { users, deleteUser, editUser } = context;
   return (
     <table>
       <thead>
@@ -21,7 +20,12 @@ const UserTable = () => {
               <td>{user.name}</td>
               <td>{user.username}</td>
               <td>
-                <button className="button muted-button">Edit</button>
+                <button
+                  className="button muted-button"
+                  onClick={() => editUser(user)}
+                >
+                  Edit
+                </button>
                 <button
                   className="button muted-button"
                   onClick={() => deleteUser(user.id)}
