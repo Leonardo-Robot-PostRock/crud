@@ -13,6 +13,7 @@ console.log(props.currentUser);
 
   const onSubmit = (data, e) => {
     e.preventDefault();
+    data.id = props.currentUser.id;
     props.updateUser(props.currentUser.id, data);
     console.log(data);
     e.target.reset();
